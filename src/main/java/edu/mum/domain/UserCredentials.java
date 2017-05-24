@@ -1,81 +1,74 @@
 package edu.mum.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 /**
  * @author Diana Yamaletdinova
- *
- * May 21, 2017
+ *         <p>
+ *         May 21, 2017
  */
-@Entity(name = "Authentication")
+@Entity(name = "Usercredentials")
 public class UserCredentials {
 
-	@Id
-	@Column(name = "USER", nullable = false, unique = true, length = 127)
-	String userName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USERCRED_ID")
+    private Long id = null;
 
-	@Column(name = "PASSWORD", nullable = false)
-	String password;
-	
-	Boolean enabled;
+    @Column(name = "USER", nullable = false, unique = true, length = 127)
+    String userName;
 
-	@OneToOne(mappedBy = "userCredentials", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private User user;
+    @Column(name = "PASSWORD", nullable = false)
+    String password;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "credential_authority", joinColumns = {
-			@JoinColumn(name = "credential_id") }, inverseJoinColumns = {
-					@JoinColumn(name = "authority_id", unique = true) })
-	List<Authority> authority = new ArrayList<Authority>();
+    Boolean enabled;
 
-	public String getUserName() {
-		return userName;
-	}
+    @OneToOne(mappedBy = "userCredentials", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private User user;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @OneToMany(mappedBy = "usercred", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Authority> authority = new ArrayList<>();
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public Boolean getEnabled() {
-		return enabled;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public List<Authority> getAuthority() {
-		return authority;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setAuthority(List<Authority> authority) {
-		this.authority = authority;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Authority> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(List<Authority> authority) {
+        this.authority = authority;
+    }
 
 }

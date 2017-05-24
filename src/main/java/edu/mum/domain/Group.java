@@ -10,26 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-/**
- * @author Diana Yamaletdinova
- *
- * May 21, 2017
- */
-@Entity(name="Groups")
+import javax.persistence.OneToMany;
+
+@Entity(name = "Groups")
 public class Group {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	String groupName;
-	
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	List<Authority> authority = new ArrayList<Authority>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-	List<UserCredentials> userCredentials = new ArrayList<UserCredentials>();
+	String group_name;
 
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	List<Authority> authority = new ArrayList<>();
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	List<UserCredentials> userCredentials = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -40,11 +36,11 @@ public class Group {
 	}
 
 	public String getGroup_name() {
-		return groupName;
+		return group_name;
 	}
 
 	public void setGroup_name(String group_name) {
-		this.groupName = group_name;
+		this.group_name = group_name;
 	}
 
 	public List<Authority> getAuthority() {
@@ -62,6 +58,5 @@ public class Group {
 	public void setUserCredentials(List<UserCredentials> userCredentials) {
 		this.userCredentials = userCredentials;
 	}
-	
 
 }
