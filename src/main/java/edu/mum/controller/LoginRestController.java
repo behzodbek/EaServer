@@ -21,13 +21,10 @@ public class LoginRestController {
 	UserCredentialsService credentialsService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<User> postLogin(UserCredentials req) {
-
-		System.out.println(req);
-		User u = new User();
-		u.setFirstName(req.getUserName());
-		u.setLastName(req.getPassword());
-		return new ResponseEntity<>(u, HttpStatus.OK);
+	public ResponseEntity<UserCredentials> postLogin(String  username) {
+		System.out.println(username);
+		UserCredentials userName = credentialsService.findByUserName(username);
+		return new ResponseEntity<>(userName, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)

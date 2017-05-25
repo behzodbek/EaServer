@@ -15,7 +15,8 @@ import edu.mum.domain.User;
 public interface MessageService {
 	
 	public void save(Messages msg);
-	public User findByUserId(String id);
+	public List<Messages> findByUserId(Long id);
+	public Messages update(Messages msgToBeAdded);
 	public List<Messages> findAll();
 	
 }
